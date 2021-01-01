@@ -1,0 +1,38 @@
+import("//testing/test.gni")
+
+config("meta_type_public_config") {
+  include_dirs = [ "src/" ]
+}
+
+static_library("meta_type") {
+  public_configs = [ ":meta_type_public_config" ]
+
+  sources = [
+    "src/TMetaObject.cpp",
+    "src/TMetaObject.h",
+    "src/TMetaProperty.cpp",
+    "src/TMetaProperty.h",
+    "src/TMetaType.cpp",
+    "src/TMetaType.h",
+    "src/TMetaTypeHeaderMacros.h",
+    "src/TMetaTypeImplMacros.h",
+    "src/TMetaTypeMacrosInternal.h",
+    "src/TTypeTraits.h",
+    "src/TVariant.cpp",
+    "src/TVariant.h",
+    # "src/TVariantHelper.h",
+  ]
+}
+
+test("meta_test") {
+  sources = [
+    "tests/TMetaTypeTests.cpp",
+  ]
+  testonly = true
+  deps = [ 
+    ":meta_type",
+    "//third_party/googletest:gtest",
+    "//third_party/googletest:gtest_main",
+  ]
+}
+
